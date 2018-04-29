@@ -25,7 +25,8 @@ FROM node:9.8-slim as build-deps
 # we need this to get `make` commands needed by bucklescript/reason, thanks @ncthbrt
 RUN apt-get update && apt-get install --no-install-recommends -yq make g++
 # add this because `react-scripts build` kept failing even though bs-platform was
-# installed as a dev dependency.
+# installed as a dev dependency. Seems like react-scripts is looking in global scope
+# for it.
 RUN yarn global add bs-platform
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
